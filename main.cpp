@@ -1,31 +1,42 @@
 #include <iostream>
-#include "Lista.h"
-#include "Fecha.h"
+#include "Texto.h"
 #include "Medidor.h"
 
-// Prueba rapida de los cimientos. Se reemplaza luego por el menu de UdeABook.
 int main()
 {
     Medidor::reiniciar();
 
-    Lista<int> numeros;
-    for (int i = 1; i <= 20; ++i)
-        numeros.agregar(i * 10);
+    Texto a("hola");
+    Texto b = "mundo";                       // conversion desde literal
+    Texto c = a + " " + b;
+    std::cout << "concatenar: " << c << " (esperado: hola mundo), size = "
+              << c.size() << " (esperado 10)\n";
 
-    Lista<int> copia(numeros);      // constructor de copia
-    copia[0] = 999;                 // la copia es independiente
+    Texto d(c);                              // copia independiente
+    d += "!";
+    std::cout << "original: " << c << " | copia: " << d
+              << " (esperado: hola mundo | hola mundo!)\n";
 
-    std::cout << "original[0] = " << numeros[0]
-              << ", copia[0] = " << copia[0]
-              << ", tamano = " << numeros.getTamano() << "\n";
+    Texto e;
+    std::cout << "vacio: " << e.vacio() << " (esperado 1)\n";
+    e = d;                                   // asignacion
+    e = e;                                   // autoasignacion segura
+    std::cout << "asignado: " << e << " (esperado: hola mundo!)\n";
 
-    Fecha a(15, 3, 2026), b(2, 10, 2026);
-    std::cout << a << " < " << b << " ? " << (a < b) << "\n";
-    std::cout << a << " <= " << a << " ? " << (a <= a) << "\n";
-    std::cout << a << " == " << b << " ? " << (a == b) << "\n";
+    Texto f("ab");
+    f += f;                                  // autoconcatenacion
+    std::cout << "t += t: " << f << " (esperado: abab)\n";
 
-    Medidor::registrarBytes(numeros.memoriaUsada() + copia.memoriaUsada()
-                            + 2 * sizeof(Fecha));
+    std::cout << "== : " << (Texto("juan") == Texto("juan")) << " (1), "
+              << (Texto("juan") == Texto("juana")) << " (0)\n";
+    std::cout << "<  : " << (Texto("ana") < Texto("beto")) << " (1), "
+              << (Texto("beto") < Texto("ana")) << " (0), "
+              << (Texto("ana") < Texto("anabel")) << " (1: prefijo), "
+              << (Texto("ana") < Texto("ana")) << " (0)\n";
+    std::cout << "[1] de 'hola' = " << a[1] << " (esperado o)\n";
+
+    Medidor::registrarBytes(a.memoriaUsada() + b.memoriaUsada() + c.memoriaUsada()
+                            + d.memoriaUsada() + e.memoriaUsada() + f.memoriaUsada());
     Medidor::mostrarReporte();
     return 0;
 }

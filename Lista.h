@@ -30,10 +30,19 @@ public:
     int getTamano() const;
     void redimensionar();
 
+    // Elimina el elemento en 'indice' SIN conservar el orden: lo reemplaza
+    // por el ultimo. Costo O(1).
+    void eliminarSinOrden(int indice);
+
     // Bytes ocupados por la lista (objeto + bloque dinamico completo).
     // No incluye lo apuntado por los elementos si T es un puntero:
     // el dueno de esos objetos suma su propia memoria.
     unsigned long memoriaUsada() const;
+
+    // Solo el bloque dinamico (capacidad * sizeof(T)). Lo usan las clases que
+    // tienen una Lista como atributo, porque sizeof(*this) de ellas ya
+    // incluye el objeto Lista.
+    unsigned long memoriaDinamica() const;
 };
 
 template <typename T>
@@ -118,9 +127,22 @@ void Lista<T>::redimensionar()
 }
 
 template <typename T>
+void Lista<T>::eliminarSinOrden(int indice)
+{
+    datos[indice] = datos[tamano - 1];
+    --tamano;
+}
+
+template <typename T>
+unsigned long Lista<T>::memoriaDinamica() const
+{
+    return static_cast<unsigned long>(capacidad) * sizeof(T);
+}
+
+template <typename T>
 unsigned long Lista<T>::memoriaUsada() const
 {
-    return sizeof(*this) + static_cast<unsigned long>(capacidad) * sizeof(T);
+    return sizeof(*this) + memoriaDinamica();
 }
 
 #endif // LISTA_H
