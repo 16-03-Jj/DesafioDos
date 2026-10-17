@@ -22,6 +22,9 @@ public:
     bool operator<=(const Fecha& otra) const;
     bool operator==(const Fecha& otra) const;
 
+    // Fecha actual (hora de Colombia, UTC-5), calculada con <chrono>.
+    static Fecha hoy();
+
     // Imprime dd/mm/aaaa.
     friend std::ostream& operator<<(std::ostream& os, const Fecha& f);
 };
