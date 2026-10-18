@@ -1,0 +1,12 @@
+debug/Plataforma.o
+debug/album.o
+debug/fecha.o
+debug/foto.o
+debug/lectorlinea.o
+debug/main.o
+debug/matrizamistad.o
+debug/medidor.o
+debug/mensaje.o
+debug/solicitud.o
+debug/texto.o
+debug/usuario.o

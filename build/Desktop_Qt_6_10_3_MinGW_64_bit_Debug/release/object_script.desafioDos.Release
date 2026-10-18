@@ -1,0 +1,12 @@
+release/Plataforma.o
+release/album.o
+release/fecha.o
+release/foto.o
+release/lectorlinea.o
+release/main.o
+release/matrizamistad.o
+release/medidor.o
+release/mensaje.o
+release/solicitud.o
+release/texto.o
+release/usuario.o
