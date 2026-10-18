@@ -28,6 +28,11 @@ int Foto::posicionLike(short idUsuario) const
     return -1;
 }
 
+short Foto::getQuienDioLike(int i) const
+{
+    return quienDioLike[i];
+}
+
 bool Foto::yaDioLike(short idUsuario) const
 {
     return posicionLike(idUsuario) >= 0;

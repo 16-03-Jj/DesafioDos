@@ -8,6 +8,17 @@ short Fecha::getDia() const  { return dia; }
 short Fecha::getMes() const  { return mes; }
 short Fecha::getAnio() const { return anio; }
 
+bool Fecha::esValida() const
+{
+    if (anio < 1900 || anio > 2100 || mes < 1 || mes > 12 || dia < 1)
+        return false;
+    static const short dm[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    short maximo = dm[mes - 1];
+    bool bisiesto = (anio % 4 == 0 && anio % 100 != 0) || anio % 400 == 0;
+    if (mes == 2 && bisiesto) maximo = 29;
+    return dia <= maximo;
+}
+
 bool Fecha::operator<(const Fecha& otra) const
 {
     if (anio != otra.anio) return anio < otra.anio;

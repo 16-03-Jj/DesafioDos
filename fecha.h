@@ -17,6 +17,9 @@ public:
     short getMes() const;
     short getAnio() const;
 
+    // true si dia, mes y anio forman una fecha real del calendario.
+    bool esValida() const;
+
     // Comparaciones cronologicas (anio, luego mes, luego dia).
     bool operator<(const Fecha& otra) const;
     bool operator<=(const Fecha& otra) const;

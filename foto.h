@@ -25,6 +25,7 @@ public:
     const Texto& getRuta() const;
     unsigned int getLikes() const;
     bool yaDioLike(short idUsuario) const;
+    short getQuienDioLike(int i) const;       // 0 <= i < getLikes()
 
     // Da like si el usuario no lo habia dado; lo quita si ya lo habia dado.
     // Devuelve true si quedo con like, false si se quito.

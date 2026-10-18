@@ -31,17 +31,23 @@ void LectorLinea::campo(char* destino, int maximo, char separador)
     if (*actual == separador) ++actual;
 }
 
+// Entero >= 0 del campo actual. Devuelve -1 si el campo esta vacio o contiene
+// algo que no son digitos (los llamadores validan el rango).
 int LectorLinea::entero(char separador)
 {
-    int valor = 0;
+    long valor = 0;
+    bool valido = (*actual != '\0' && *actual != separador);
     while (*actual != '\0' && *actual != separador) {
         Medidor::contarIteracion();
-        if (*actual >= '0' && *actual <= '9')
-            valor = valor * 10 + (*actual - '0');
+        if (*actual >= '0' && *actual <= '9') {
+            if (valor < 100000000) valor = valor * 10 + (*actual - '0');
+        } else {
+            valido = false;
+        }
         ++actual;
     }
     if (*actual == separador) ++actual;
-    return valor;
+    return valido ? static_cast<int>(valor) : -1;
 }
 
 Fecha LectorLinea::fecha(char separador)
